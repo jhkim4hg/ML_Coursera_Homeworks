@@ -1,3 +1,5 @@
+%TEST%
+
 %% Machine Learning Online Class - Exercise 2: Logistic Regression
 %
 %  Instructions
@@ -88,7 +90,7 @@ options = optimset('GradObj', 'on', 'MaxIter', 400);
 
 % Print theta to screen
 fprintf('Cost at theta found by fminunc: %f\n', cost);
-fprintf('theta: \n');
+printf('theta: \n');
 fprintf(' %f \n', theta);
 
 % Plot Boundary
