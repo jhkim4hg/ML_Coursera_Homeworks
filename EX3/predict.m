@@ -21,10 +21,31 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Add 1s to input layer, X
+%X = [ones(size(X,1),1) X];
 
+% Compute a2 
+%a2 = sigmoid(X * Theta1');
 
+% Add 1s to hidden layer 1, a2
+%a2 = [ones(size(a2,1),1) a2];
 
+% Compute h_theta(X)
+%h_theta_X = sigmoid(a2 * Theta2');
 
+% Choose max h_theta_X
+%[x, p] = max(h_theta_X');
+
+% Return prediction, p
+%p = p';
+
+a1 = [ones(m, 1) X];
+z2 = a1*Theta1';
+a2 = [ones(size(z2, 1), 1) sigmoid(z2)];
+z3 = a2*Theta2';
+a3 = sigmoid(z3);
+
+[p_max, p] = max(a3, [], 2);
 
 
 

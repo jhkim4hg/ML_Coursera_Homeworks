@@ -37,13 +37,15 @@ grad = zeros(size(theta));
 %
 
 
+%Hypothesis
+h = sigmoid(X * theta);
 
+%Cost Function
+J = (sum(-y'*log(h)-(1-y)'*log(1-h)) / m ) + (lambda / (2 * m) ) * (sum(theta(2:size(theta)) .^ 2));
 
-
-
-
-
-
+%Gradient (Start the index from 1 not 0)
+grad(1)= X(:,1)' * (h - y) / m; 
+grad(2:size(grad)) = X(:,2:size(grad))' * (h - y) / m + theta(2:size(theta)) * lambda / m;
 
 % =============================================================
 
