@@ -63,24 +63,64 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+% PART 1 ----------- FORWARDPROPAGATION: COST FUNCTION & REGULARIZATION ---------------------
+
+% First initialize X input to include a row of ones
+X = [ones(m,1) X];
+
+% Forward propagation
+z1 = sigmoid(Theta1 * X');
+a2 = [ones(1, size(z1, 2)); z1];
+a3 = sigmoid(Theta2 * a2);
+h = a3;
+
+% Get y matrix as classes
+yM = zeros(num_labels, m);
+
+for i=1:num_labels,
+    yM(i,:) = (y==i);
+end
 
 
+% Cost function
+J = (1 / m) * (sum(sum(-yM .* log(h) - (1 - yM) .* log(1 - h))));
 
+% Regularization - Forward propagation
+Theta1_R = Theta1(:,2:size(Theta1,2));
+Theta2_R = Theta2(:,2:size(Theta2,2));
 
+% Now implement the regularization formula described on page 6 of ex4.
+R = (lambda / (2 * m)) * (sum(sum( Theta1_R .^ 2 )) + sum(sum(Theta2_R .^ 2 )));
 
+% Now just add the regularization term to the previously calculated J
+J = J + R;
 
+% PART 2 ----------- BACKPROPAGATION ---------------------------------------
 
+for k = 1:m
 
+	% forward propagation
+	a1 = X(k,:);
+	z2 = Theta1 * a1';
+	
+	a2 = sigmoid(z2);
+	a2 = [1; a2]; % bias
+	
+	a3 = sigmoid(Theta2 * a2); % a3 == h(theta)
+	
+	% backward
+		d3 = a3 - yM(:,k); % layer 3
+	z2 = [1; z2]; % add bias
+	
+	d2 = (Theta2' * d3) .* sigmoidGradient(z2);
+	d2 = d2(2:end); % remove bias
+	
+	% accumulate
+	Theta2_grad = Theta2_grad + d3 * a2';
+	Theta1_grad = Theta1_grad + d2 * a1;
 
+end;	
 
-
-
-
-
-
-
-
-% -------------------------------------------------------------
 
 % =========================================================================
 
