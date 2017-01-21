@@ -63,6 +63,7 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+<<<<<<< Updated upstream
 % PART 1 ----------- FORWARDPROPAGATION: COST FUNCTION & REGULARIZATION ---------------------
 
 % First initialize X input to include a row of ones
@@ -122,6 +123,27 @@ for k = 1:m
 end;	
 
 
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% -------------------------------------------------------------
+
+>>>>>>> Stashed changes
 % =========================================================================
 
 % Unroll gradients
